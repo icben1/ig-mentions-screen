@@ -3,6 +3,12 @@ import crypto from "crypto";
 
 const app = express();
 
+// OAuth redirect endpoint (Meta will send users back here)
+app.get("/auth/callback", (req, res) => {
+  res.type("text").send("Callback OK ✅\n\n" + JSON.stringify(req.query, null, 2));
+});
+
+
 // Keep raw body for signature verification
 app.use(express.json({
   verify: (req, res, buf) => { req.rawBody = buf; }
